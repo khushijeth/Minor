@@ -1,6 +1,9 @@
 # myapp/urls.py
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 app_name = 'myapp'
 
@@ -22,4 +25,4 @@ urlpatterns = [
 
     path('logs/', views.system_logs, name='system_logs'),
     path("api/schedules/", views.api_get_schedules, name="api_schedules"),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
