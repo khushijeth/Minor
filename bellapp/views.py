@@ -190,3 +190,31 @@ def about(request):
 
 def contact(request):
     return render(request, 'myapp/contact.html')
+
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.timezone import now
+
+@csrf_exempt
+def api_get_schedules(request):
+    """
+    ESP32 will call this API
+    """
+    if request.method != "GET":
+        return JsonResponse({"error": "Invalid method"}, status=400)
+
+    schedules = Schedule.objects.filter(enabled=True)
+
+    data = []
+    for s in schedules:
+        data.append({
+            "id": s.id,
+            "name": s.name,
+            "date": s.date.strftime("%Y-%m-%d"),
+            "start_time": s.start_time.strftime("%H:%M"),
+            "duration": s.duration_minutes,
+        })
+
+    return JsonResponse({
+        "server_time": now().strftime("%Y-%m-%d %H:%M:%S"),
+        "schedules": data
+    })

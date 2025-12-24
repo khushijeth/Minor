@@ -21,4 +21,5 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
 
     path('logs/', views.system_logs, name='system_logs'),
+    path("api/schedules/", views.api_get_schedules, name="api_schedules"),
 ]
