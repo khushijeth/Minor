@@ -1,0 +1,33 @@
+{% extends "myapp/base.html" %}
+{% block title %}System Logs{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>📝 System Logs</h2>
+
+  <table class="table table-bordered table-striped mt-3">
+    <thead style="background-color: #f8f9fa;">
+      <tr>
+        <th style="color: black;">S.No.</th>
+        <th style="color: black;">Action</th>
+        <th style="color: black;">Message</th>
+        <th style="color: black;">Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for log in logs %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ log.action }}</td>
+        <td>{{ log.message }}</td>
+        <td>{{ log.timestamp }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4" class="text-center">No system logs found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

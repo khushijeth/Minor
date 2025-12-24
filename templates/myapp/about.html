@@ -1,0 +1,44 @@
+{% extends 'myapp/base.html' %}
+{% block title %}About — Bell Automation System{% endblock title %}
+
+{% block content %}
+<div class="container py-4">
+  <main class="main-page-content">
+    <h1>About Our System</h1>
+
+    <section class="card purpose-mission mb-4">
+      <h2>Purpose & Mission</h2>
+      <p>
+        Our mission is to provide a seamless and reliable bell scheduling system. We aim to eliminate manual errors and ensure precise timing for all academic activities.
+      </p>
+    </section>
+
+    <div class="row g-4">
+      <div class="col-12 col-md-6">
+        <div class="card technology-used">
+          <span class="icon">🕒</span>
+          <h2>Technology Used</h2>
+          <ul>
+            <li>Core System: Custom Scheduling Engine (Python/Flask)</li>
+            <li>Microcontroller: Raspberry Pi (Flask/Django)</li>
+            <li>Web Frontend: HTML, CSS, JavaScript</li>
+            <li>Communication: MQTT/REST API (for device integration)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="card key-benefits">
+          <span class="icon">⚙</span>
+          <h2>Key Benefits</h2>
+          <ul>
+            <li>Accuracy & Reliability</li>
+            <li>Reduced Errors & Time Savings</li>
+            <li>Remote Management</li>
+            <li>Audit Trails & Accountability</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock content %}

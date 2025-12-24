@@ -1,0 +1,106 @@
+{# myapp/templates/myapp/contact.html #}
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block title %}Contact — Exam Bell Automation System{% endblock title %}
+
+{% block content %}
+<div class="contact-wrapper">   
+  <main class="contact-main">
+
+    <h1 class="contact-title">Contact Us</h1>
+
+    <!-- Team Cards Container -->
+    <div class="team-cards-wrapper">
+
+      <div class="team-card">
+        <div class="team-card-inner">
+          <div class="team-card-front">1. Kratika Verma</div>
+          <div class="team-card-back">
+            Email: kratika@gmail.com <br>
+            Phone: 9323938081 <br>
+            Role: Team Leader / Frontend Developer
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-card-inner">
+          <div class="team-card-front">2. Pallavi Patidar</div>
+          <div class="team-card-back">
+            Email: pallavi@gmail.com <br>
+            Phone: 8817850884 <br>
+            Role: Backend Developer
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-card-inner">
+          <div class="team-card-front">3. Khushi Jethwa</div>
+          <div class="team-card-back">
+            Email: khushi@gmail.com <br>
+            Phone: 8817850884 <br>
+            Role: Backend Developer
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-card-inner">
+          <div class="team-card-front">4. Bhumi Gupta</div>
+          <div class="team-card-back">
+            Email: bhumi@gmail.com <br>
+            Phone: 8817850884 <br>
+            Role: Backend Developer
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-card-inner">
+          <div class="team-card-front">5. Divyani Pagare</div>
+          <div class="team-card-back">
+            Email: pagare@gmail.com <br>
+            Phone: 8817850884 <br>
+            Role: Backend Developer
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Support + Feedback Section -->
+    <div class="contact-two-column">
+
+      <div class="contact-info-card">
+        <h2>Technical Support & Urgent Issues</h2>
+        <br>
+        <br>
+        <ul>
+          <li>Core System: Custom Scheduling Engine</li>
+          <br>
+          <li>Microcontroller: Raspberry Pi</li>
+          <br>
+          <li>Frontend: HTML, CSS, JavaScript</li>
+          <br>
+          <li>Communication: REST API / MQTT</li>
+        </ul>
+      </div>
+
+      <div class="contact-info-card">
+        <h2>General Inquiries & Feedback</h2>
+        <form method="post">
+          {% csrf_token %}
+          <input type="text" placeholder="Your Name" required>
+          <input type="email" placeholder="Your Email" required>
+          <textarea placeholder="Your Message" required></textarea>
+          <input type="submit" value="SUBMIT MESSAGE">
+        </form>
+      </div>
+
+    </div>
+
+  </main>
+</div>
+{% endblock content %}

@@ -1,0 +1,207 @@
+{% extends "myapp/base.html" %}
+{% load static %}
+{% block title %}Dashboard | Bell System{% endblock title %}
+
+
+{% block content %}
+<div class="container">
+    <form id="manual-ring-form" method="post" action="{% url 'myapp:manual_ring' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-warning ring-button">Ring Bell Now</button>
+    </form>
+    <div class="content-wrapper">
+      <!-- Left column -->
+      <div class="main-column">
+        <div id="clock-card" class="card clock-card">
+          <div class="card-body text-center">
+            <h5 class="card-title">Current Time</h5>
+            <p id="current-time" class="display-6">--:--:--</p>
+          </div>
+        </div>
+        <div class="card next-bell-card mt-3" style="height:170px ;">
+          <div class="card-body text-center" style="color:#007bff">
+            <h5 class="card-title">🔔 Next Bell</h5>
+            <p id="next-bell-name" class="fw-bold">--</p>
+            <p id="next-bell-time" class="display-6"style="font-size:20px">--:--</p>
+          </div>
+        </div>
+        
+
+        <div class="card schedule-card">
+          <div class="card-header">
+            <h5>Your Schedule</h5>
+          </div>
+          <div class="card-body p-0">
+            <table class="table table-striped mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th>Name</th>
+                  <th>Time</th>
+                  <th>Duration</th>
+                  <th>Date</th>
+                  <th>Enabled</th>
+                  
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for sched in schedules %}
+                <tr 
+                data-name="{{sched.name}}"
+                data-time="{{sched.start_time|time:"H:i" }}"
+                data-date="{{sched.date}}"
+                data-enabled="{{sched.enabled|yesno:'1,0' }}"
+                >
+                  <td>{{ sched.name }}</td>
+                  <td>{{ sched.start_time}}</td>
+                  <td>{{ sched.duration_minutes }}</td>
+                  <td>{{sched.date}}</td>
+                  <td>{{ sched.enabled}}</td>
+                  <td>
+                    <a href="{% url 'myapp:edit_schedule' sched.id %}" class="btn btn-sm btn-primary">Edit</a>
+                    <form method="post" action="{% url 'myapp:delete_schedule' sched.id %}" style="display:inline;">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-sm btn-danger"
+                        onclick="return confirm('Are you sure to delete this schedule?');">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="5" class="text-center">No schedules defined.</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Right column (sticky sidebar) -->
+      <div class="sidebar-column">
+        {% comment %} <div class="card next-bell-card mt-3" style="height:170px ;">
+          <div class="card-body text-center" style="color:#007bff">
+            <h5 class="card-title">🔔 Next Bell</h5>
+            <p id="next-bell-name" class="fw-bold">--</p>
+            <p id="next-bell-time" class="display-6"style="font-size:20px">--:--</p>
+          </div>
+        </div> {% endcomment %}
+        <div class="card add-schedule-card">
+          <div class="card-header">
+            <h5>Add New Schedule</h5>
+          </div>
+          <div class="card-body">
+            <form method="post">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="id_name" class="form-label">Schedule Name</label>
+                <input type="text" name="name" id="id_name" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label for="id_start_time" class="form-label">Start Time</label>
+                <input type="time" name="start_time" id="id_start_time" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label for="id_duration" class="form-label">Duration (mins)</label>
+                <input type="number" name="duration" id="id_duration" class="form-control" required min="1">
+              </div>
+              <div class="mb-3">
+                <label for="id_date" class="form-label">Date</label>
+                <input type="date" name="date" id="id_date" class="form-control" required>
+              </div>
+              <div class="form-check mb-3">
+                <input type="checkbox" name="enabled" id="id_enabled" class="form-check-input" checked>
+                <label for="id_enabled" class="form-check-label">Enabled</label>
+              </div>
+              <button type="submit" class="btn btn-success w-100">Add Schedule</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // JS for updating current time every second
+  function updateClock(){
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2, '0');
+    const m = String(now.getMinutes()).padStart(2, '0');
+    const s = String(now.getSeconds()).padStart(2, '0');
+    document.getElementById('current-time').textContent = `${h}:${m}:${s}`;
+  }
+  window.onload = function(){
+    updateClock();
+    setInterval(updateClock, 1000);
+  };
+
+document.getElementById("manual-ring-form").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  try {
+    const response = await fetch(this.action, {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': '{{ csrf_token }}'
+      }
+    });
+    if (response.ok) {
+      alert("🔔 Bell rang manually!");
+    } else {
+      alert("Error while ringing bell. HTTP " + response.status);
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Network error when trying to ring bell.");
+  }
+});
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  function updateNextBell() {
+    const rows = document.querySelectorAll("tbody tr[data-time]");
+    const now = new Date();
+    let nextBell = null;
+
+    rows.forEach(row => {
+      console.log("Row:", row.dataset);
+
+      if (row.dataset.enabled !== "1") return;
+
+      const timeStr = row.dataset.time;
+      if (!timeStr) return;
+
+      const [h, m] = timeStr.split(":");
+      const bellTime = new Date();
+      bellTime.setHours(parseInt(h), parseInt(m), 0, 0);
+
+      if (bellTime > now) {
+        if (!nextBell || bellTime < nextBell.time) {
+          nextBell = {
+            name: row.dataset.name,
+            time: bellTime
+          };
+        }
+      }
+    });
+
+    if (nextBell) {
+      document.getElementById("next-bell-name").textContent = nextBell.name;
+      document.getElementById("next-bell-time").textContent =
+        nextBell.time.toLocaleTimeString('en-IN', {
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+    } else {
+      document.getElementById("next-bell-name").textContent = "No Upcoming Bell";
+      document.getElementById("next-bell-time").textContent = "--:--";
+    }
+  }
+
+  updateNextBell();
+  setInterval(updateNextBell, 1000);
+});
+
+
+
+</script>
+
+{% endblock content %}
