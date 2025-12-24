@@ -1,0 +1,89 @@
+/* Reset / base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f7f6;
+  color: #333;
+  min-height: 100vh;
+}
+
+/* Content container padding */
+.main-page-content {
+  padding: 20px;
+  max-width: 100%;
+}
+
+/* Cards styling */
+.card {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border: 1px solid #dee2e6;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h2 {
+  color: #4a90e2;
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.card .icon {
+  font-size: 1.3em;
+  margin-right: 10px;
+}
+
+/* Lists inside cards */
+.technology-used ul,
+.key-benefits ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.technology-used ul li {
+  margin-bottom: 8px;
+  padding-left: 15px;
+  position: relative;
+}
+
+.technology-used ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #333;
+}
+
+.key-benefits ul li {
+  margin-bottom: 8px;
+  padding-left: 1.2em;
+  list-style-type: disc;
+  color: #333;
+}
+
+/* Footer styling */
+.system-footer {
+  text-align: center;
+  color: #6c757d;
+  font-size: 0.9em;
+}
+
+.privacy-links a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.privacy-links a:hover {
+  text-decoration: underline;
+}

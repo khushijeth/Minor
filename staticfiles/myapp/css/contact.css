@@ -1,0 +1,141 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f6;
+    line-height: 1.6;
+}
+
+/* Wrapper */
+.contact-wrapper {
+    display: flex;
+    min-height: calc(100vh - 54px);
+}
+
+/* Main Content */
+.contact-main {
+    flex-grow: 1;
+    padding: 30px;
+    text-align: center;
+}
+
+/* Title */
+.contact-title {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Team Cards */
+.team-cards-wrapper {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.team-card {
+    width: 200px;
+    height: 160px;
+    perspective: 1000px;
+}
+
+.team-card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s;
+    transform-style: preserve-3d;
+    position: relative;
+    border-radius: 10px;
+}
+
+.team-card:hover .team-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front & Back */
+.team-card-front,
+.team-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.team-card-front {
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    font-weight: 600;
+}
+
+.team-card-back {
+    background: #f3f3f3;
+    transform: rotateY(180deg);
+    font-size: 14px;
+}
+
+/* Two Column Layout */
+.contact-two-column {
+    display: flex;
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.contact-info-card {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.contact-info-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Form Styling */
+.contact-info-card input,
+.contact-info-card textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.contact-info-card textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+.contact-info-card input[type="submit"] {
+    background: rgb(0, 132, 255);
+    color: white;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+}
+
+.contact-info-card input[type="submit"]:hover {
+    background-color: rgb(54, 191, 236);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contact-two-column {
+        flex-direction: column;
+    }
+}

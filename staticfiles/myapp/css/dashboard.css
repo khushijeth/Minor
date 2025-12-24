@@ -1,0 +1,162 @@
+/* Basic reset and layout */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f4f6fa;
+  color: #343a40;
+  font-family: sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.ring-button {
+  background-color: orange;
+  border: none;
+  width: 200px;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+/* two‑column layout */
+.content-wrapper {
+  display: flex;
+  gap: 2rem;
+}
+
+/* Left/main column */
+.main-column {
+  flex: 0 0 60%;  /* ~65% width */
+}
+
+.card {
+  border: none;
+  border-radius: 8px;
+  background: white;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.card-header {
+  background-color: #007bff;
+  border-bottom: 2px solid #e9ecef;
+  padding: 0.75rem 1rem;
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.clock-card .card-body {
+  padding: 1.5rem;
+  text-align: center;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 8px;
+}
+
+#current-time {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+/* Table styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead th {
+  border-bottom: 2px solid #dee2e6;
+  text-align: center;
+  padding: 0.75rem 1rem;
+  background-color: #f8f9fa;
+  white-space: nowrap;
+}
+
+.table tbody tr {
+  background-color: #fff;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: #f8f9fa;
+}
+
+.table tbody td {
+  padding: 0.75rem 1rem;
+}
+
+/* Sidebar (right) column */
+.sidebar-column {
+  flex: 0 0 35%;  /* ~35% width */
+}
+
+/* Make the right card sticky */
+.add-schedule-card {
+  position: sticky;
+  top: 1rem;              /* adjust if you have a fixed header/navbar */
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+}
+
+/* Form inputs & buttons (you can fine‑tune further) */
+.form-label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+.btn {
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  background-color: #0069d9;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  height: 30px;
+  width: 50px;
+}
